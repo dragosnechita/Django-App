@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}section.title{% endblock %}</title>
+</head>
+<body>
+{% block content %}
+    {% for post in blog_entries %}
+        {% if post.old %}
+        <h1>Older Stories</h1>
+        {% else %}
+        <h1>Latest posts</h1>
+        {% endif %}
+        <h2>{{ post.title }}</h2>
+        <h3><span style="font-style:italic">Author:</span> {{ post.author }}</h3>
+        <h4><span style="font-style:italic">posted on:</span> {{ post.created }}</h4>
+        <p>{{ post.content }}</p>
+        <img style="max-width:200px;border-radius:10%" src="{{ post.image }}">
+        {% for comment in post.comments %}
+            <p>on {{ comment.date }}</p>
+            <p>{{ comment.author }} has said:</p>
+            <p>{{ comment.content }}</p>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+</body>
+</html>
